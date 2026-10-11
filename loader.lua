@@ -37,7 +37,7 @@ for _, name in ipairs(modules) do
     end
 end
 
--- Fallbacks for critical deps
+-- ===== FALLBACKS FOR CRITICAL DEPS =====
 if not Deps.theme then
     Deps.theme = {
         Primary = Color3.fromHex("#7C3AED"), Accent = Color3.fromHex("#F43F5E"),
@@ -71,12 +71,27 @@ if not Deps.maid then
     function Deps.maid:Cleanup() for _,t in ipairs(self._tasks) do if typeof(t)=="RBXScriptConnection" then t:Disconnect() elseif typeof(t)=="Instance" then t:Destroy() elseif type(t)=="function" then pcall(t) end end table.clear(self._tasks) end
 end
 
--- Initialize UI
+-- ===== GLOBAL REGISTRY FOR ORCHESTRATOR =====
+_G.NH_Config = Deps.config
+_G.NH_Maid = Deps.maid
+_G.NH_Place = Deps.place
+_G.NH_Clicker = Deps.clicker
+_G.NH_UI = Deps.ui
+_G.NH_Plane = Deps.plane
+_G.NH_Combat = Deps.combat
+_G.NH_ESP = Deps.esp
+_G.NH_Clicker = Deps.clicker
+_G.NH_Maid = Deps.maid
+_G.NH_Config = Deps.config
+_G.NH_Place = Deps.place
+
+-- ===== INITIALIZE UI =====
 if Deps.ui and Deps.ui.Init then
     Deps.ui.Init(
         Deps.theme, Deps.maid, Deps.config, Deps.place, Deps.clicker,
         Deps.movement, Deps.esp, Deps.combat, Deps.plane
-    )
+    end
+    _G.NH_UI = Deps.ui  -- глобальная ссылка для orchestrator'а
 end
 
 if Deps.orchestrator and Deps.orchestrator.Init then
