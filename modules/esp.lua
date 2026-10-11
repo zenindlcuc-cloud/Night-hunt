@@ -1,4 +1,3 @@
--- modules/esp.lua
 local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
 
@@ -13,7 +12,10 @@ return function(Config, Maid)
         pcall(function() hl.Parent = model end)
         ESP._tracked[model] = hl
         model.AncestryChanged:Connect(function(_, parent)
-            if not parent and ESP._tracked[model] then pcall(function() ESP._tracked[model]:Destroy() end); ESP._tracked[model] = nil end
+            if not parent and ESP._tracked[model] then
+                pcall(function() ESP._tracked[model]:Destroy() end)
+                ESP._tracked[model] = nil
+            end
         end)
     end
     function ESP.Scan()
