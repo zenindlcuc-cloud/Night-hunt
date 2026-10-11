@@ -1,5 +1,5 @@
--- modules/clicker.lua (ИСПРАВЛЕННЫЙ)
-return function ClickButtonByText(text)
+-- modules/clicker.lua
+local function ClickButtonByText(text)
     local function deepSearch(gui)
         if not gui then return false end
         if gui:IsA("TextButton") and gui.Text == text and gui.Visible and gui.Active then
@@ -17,5 +17,9 @@ return function ClickButtonByText(text)
         end
         return false
     end
-    return deepSearch(game:GetService("Players").LocalPlayer:WaitForChild("PlayerGui"))
+    return function(text)
+        return deepSearch(game:GetService("Players").LocalPlayer:WaitForChild("PlayerGui"))
+    end
 end
+
+return ClickButtonByText
