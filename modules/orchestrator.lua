@@ -1,4 +1,4 @@
--- modules/orchestrator.lua (ИСПРАВЛЕННЫЙ)
+-- modules/orchestrator.lua
 return function(Deps)
     local Config = Deps.config
     local Place = Deps.place
@@ -69,7 +69,5 @@ return function(Deps)
         end
     end)
 
-    return { Init = function() end }
-end
     return { Init = function() end }
 end
