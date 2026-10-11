@@ -1,4 +1,4 @@
--- modules/orchestrator.lua
+-- modules/orchestrator.lua (ИСПРАВЛЕННЫЙ)
 return function(Deps)
     local Config = Deps.config
     local Place = Deps.place
@@ -12,7 +12,7 @@ return function(Deps)
 
     task.spawn(function()
         while true do
-            local ctx = Place.GetContext and Place.GetContext() or (LOBBY_IDS[game.PlaceId] and "Lobby" or "Match")
+            local ctx = Place.GetContext and Place.GetContext() or (game.PlaceId == 102616257370565 or game.PlaceId == 97441945908384) and "Lobby" or "Match"
             
             -- LOBBY PHASE
             if ctx == "Lobby" and not State.inBattle then
@@ -30,6 +30,7 @@ return function(Deps)
                                 _G.NH_UI.SetStatus("AIRCRAFT TIMER COMPLETE - AWAITING MATCH")
                             end
                         end)
+                    end
                 end
             end
 
@@ -68,5 +69,7 @@ return function(Deps)
         end
     end)
 
+    return { Init = function() end }
+end
     return { Init = function() end }
 end
