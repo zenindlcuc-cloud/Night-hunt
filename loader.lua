@@ -4,37 +4,61 @@ local BASE = "https://raw.githubusercontent.com/zenindlcuc-cloud/Night-hunt/main
 local function httpGet(url)
     local requestFunc = request or http_request or (http and http.request) or (syn and syn.request) or (fluxus and fluxus.request)
     
-    for i = 1, 3 do
-        if requestFunc then
-            local ok, result = pcall(function() 
-                return requestFunc({
-                    Url = url,
-                    Method = "GET"
-                })
-            end)
-            if ok and result and result.Body and #result.Body > 0 then
+    if requestFunc then
+        local ok, result = pcall(function() 
+            return requestFunc({
+                Url = url,
+                Method = "GET",
+                Headers = {
+                    ["User-Agent"] = "Roblox/Delta (Windows; U; en-US)"
+                }
+            })
+        end)
+        if not ok then
+            warn("[NH Loader] Request failed with error: " .. tostring(result))
+        elseif type(result) == "table" then
+            if result.StatusCode == 200 then
                 return result.Body
+            else
+                warn("[NH Loader] Request returned status code: " .. tostring(result.StatusCode) .. " for URL: " .. url)
             end
+        else
+            warn("[NH Loader] Request returned unexpected result type: " .. type(result))
         end
-
-        local ok, result = pcall(function() return game:HttpGet(url) end)
-        if ok and type(result) == "string" and #result > 0 then return result end
-        task.wait(0.5)
     end
+
+    -- Fallback to game:HttpGet
+    local ok, result = pcall(function() return game:HttpGet(url) end)
+    if ok and type(result) == "string" and #result > 0 then 
+        return result 
+    else
+        warn("[NH Loader] game:HttpGet failed or returned invalid data: " .. tostring(result))
+    end
+    
     return nil
 end
 
 local function loadMod(name)
-    local src = httpGet(BASE .. name .. ".lua")
-    if not src then return nil end
-    local ok, fn = pcall(loadstring, src, name)
-    if not ok then return nil end
+    local url = BASE .. name .. ".lua"
+    local src = httpGet(url)
+    if not src then 
+        warn("[NH Loader] Could not fetch source for module: " .. name)
+        return nil 
+    end
+    
+    local fn, err = loadstring(src, name)
+    if not fn then 
+        warn("[NH Loader] Syntax error in module " .. name .. ": " .. tostring(err))
+        return nil 
+    end
+    
     return fn
 end
 
 local Deps = {}
 local mods = {"theme","config","maid","place","clicker","movement","esp","combat","plane","ui","orchestrator"}
 
+print("[NH Loader] Starting...")
 for _, name in ipairs(mods) do
     local fn = loadMod(name)
     if fn then
@@ -42,12 +66,12 @@ for _, name in ipairs(mods) do
         if ok and mod then
             _G.NH_Deps = _G.NH_Deps or {}
             _G.NH_Deps[name] = mod
-            print("[NH] Loaded: " .. name)
+            print("[NH Loader] Loaded: " .. name)
         else
-            warn("Factory fail: " .. name)
+            warn("[NH Loader] Factory fail: " .. name .. " - Error: " .. tostring(mod))
         end
     else
-        warn("Fetch fail: " .. name)
+        warn("[NH Loader] Fetch fail: " .. name)
     end
 end
 
@@ -78,7 +102,6 @@ _G.NH_UI = _G.NH_Deps.ui
 _G.NH_Plane = _G.NH_Deps.plane
 _G.NH_Combat = _G.NH_Deps.combat
 _G.NH_ESP = _G.NH_Deps.esp
-_G.NH_Maid = _G.NH_Deps.maid
 _G.NH_Config = _G.NH_Config
 _G.NH_Place = _G.NH_Place
 
@@ -95,4 +118,4 @@ if _G.NH_Deps.orchestrator and _G.NH_Deps.orchestrator.Init then
     _G.NH_Deps.orchestrator.Init()
 end
 
-print("[NH] Loader complete.")
+print("[NH Loader] Complete.")
