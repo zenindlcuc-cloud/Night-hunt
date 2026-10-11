@@ -5,7 +5,6 @@ return function ClickButtonByText(text)
         if gui:IsA("TextButton") and gui.Text == text and gui.Visible and gui.Active then
             pcall(function()
                 gui.MouseButton1Click:Fire()
-                if gui.MouseEnter then gui.MouseEnter() end
                 if gui.MouseButton1Down then gui.MouseButton1Down() end
                 task.wait(0.05)
                 if gui.MouseButton1Up then gui.MouseButton1Up() end
