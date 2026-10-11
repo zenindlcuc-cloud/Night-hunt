@@ -88,7 +88,7 @@ _G.NH_Deps.theme = _G.NH_Deps.theme or {
     Easing={fast=TweenInfo.new(0.15),normal=TweenInfo.new(0.25),spring=TweenInfo.new(0.4,Enum.EasingStyle.Back)},
 }
 _G.NH_Config = _G.NH_Deps.config or {ESP_Enabled=true,Noclip=true,NoCollision=true,AutoKill=true,AttackDistance=2.5,HeightOffset=1.0,FastAttack=true,TargetRadius=600,ScanInterval=0.25,AutoSeat=true,PlaneWaitTime=60,Anti773Fallback=102616257370565}
-_G.NH_Maid = _G.NH_Deps.maid or {_tasks={},Give=function(s,t)table.insert(s._tasks,t)return t end,Cleanup=function(s)for_,t in ipairs(s._tasks)do if typeof(t)=="RBXScriptConnection"then t:Disconnect()elseif typeof(t)=="Instance"then t:Destroy()elseif type(t)=="function"then pcall(t)end end table.clear(s._tasks)end}
+_G.NH_Maid = _G.NH_Deps.maid or {_tasks={},Give=function(s,t)table.insert(s._tasks,t)return t end,Cleanup=function(s)for _,t in ipairs(s._tasks)do if typeof(t)=="RBXScriptConnection"then t:Disconnect()elseif typeof(t)=="Instance"then t:Destroy()elseif type(t)=="function"then pcall(t)end end table.clear(s._tasks)end}
 _G.NH_Deps.config = _G.NH_Deps.config or _G.NH_Config
 _G.NH_Deps.maid = _G.NH_Deps.maid or _G.NH_Maid
 _G.NH_Deps.theme = _G.NH_Deps.theme or _G.NH_Theme
