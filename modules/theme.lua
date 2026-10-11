@@ -1,49 +1,19 @@
--- modules/theme.lua
 return {
-    -- Gaming Palette (Neon Purple + Rose + Green)
-    Primary      = Color3.fromHex("#7C3AED"),
-    PrimaryDim   = Color3.fromHex("#5B21B6"),
-    OnPrimary    = Color3.fromHex("#FFFFFF"),
-    Secondary    = Color3.fromHex("#A78BFA"),
-    OnSecondary  = Color3.fromHex("#0F172A"),
-    Accent       = Color3.fromHex("#F43F5E"),
-    OnAccent     = Color3.fromHex("#000000"),
-    Success      = Color3.fromHex("#22C55E"),
-    OnSuccess    = Color3.fromHex("#0F172A"),
-    Background   = Color3.fromHex("#0F0F23"),
-    Surface      = Color3.fromHex("#1E1C35"),
-    SurfaceHover = Color3.fromHex("#27273B"),
-    Foreground   = Color3.fromHex("#E2E8F0"),
-    Muted        = Color3.fromHex("#27273B"),
-    MutedFG      = Color3.fromHex("#94A3B8"),
-    Border       = Color3.fromHex("#4C1D95"),
-    BorderBright = Color3.fromHex("#7C3AED"),
-    Ring         = Color3.fromHex("#7C3AED"),
-    Destructive  = Color3.fromHex("#EF4444"),
-    OnDestructive= Color3.fromHex("#FFFFFF"),
-    Shadow       = Color3.fromHex("#000000"),
-    
-    -- Glassmorphism
-    GlassBg      = Color3.fromHex("#1E1C35"),
-    GlassBorder  = Color3.fromHex("#4C1D95"),
+    Primary = Color3.fromHex("#7C3AED"), PrimaryDim = Color3.fromHex("#5B21B6"),
+    OnPrimary = Color3.fromHex("#FFFFFF"), Secondary = Color3.fromHex("#A78BFA"),
+    OnSecondary = Color3.fromHex("#0F172A"), Accent = Color3.fromHex("#F43F5E"),
+    OnAccent = Color3.fromHex("#000000"), Success = Color3.fromHex("#22C55E"),
+    OnSuccess = Color3.fromHex("#0F172A"), Background = Color3.fromHex("#0F0F23"),
+    Surface = Color3.fromHex("#1E1C35"), SurfaceHover = Color3.fromHex("#27273B"),
+    Foreground = Color3.fromHex("#E2E8F0"), Muted = Color3.fromHex("#27273B"),
+    MutedFG = Color3.fromHex("#94A3B8"), Border = Color3.fromHex("#4C1D95"),
+    BorderBright = Color3.fromHex("#7C3AED"), Ring = Color3.fromHex("#7C3AED"),
+    Destructive = Color3.fromHex("#EF4444"), OnDestructive = Color3.fromHex("#FFFFFF"),
+    Shadow = Color3.fromHex("#000000"),
+    GlassBg = Color3.fromHex("#1E1C35"), GlassBorder = Color3.fromHex("#4C1D95"),
     GlassHighlight = Color3.fromHex("#7C3AED"),
-    
-    -- Typography
-    FontHeader   = Enum.Font.GothamBold,
-    FontMono     = Enum.Font.RobotoMono,
-    FontBody     = Enum.Font.GothamMedium,
-    
-    -- Spacing Scale (4dp base)
-    Space = { xs=4, sm=8, md=12, lg=16, xl=24, xxl=32, xxxl=48 },
-    
-    -- Radius
-    Radius = { sm=6, md=10, lg=16, xl=24, full=999 },
-    
-    -- Animation
-    Easing = {
-        fast  = TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-        normal= TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-        slow  = TweenInfo.new(0.4,  Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-        spring= TweenInfo.new(0.4,  Enum.EasingStyle.Back, Enum.EasingDirection.Out),
-    },
+    FontHeader = Enum.Font.GothamBold, FontMono = Enum.Font.RobotoMono, FontBody = Enum.Font.GothamMedium,
+    Space = {xs=4,sm=8,md=12,lg=16,xl=24,xxl=32,xxxl=48},
+    Radius = {sm=6,md=10,lg=16,xl=24,full=999},
+    Easing = {fast=TweenInfo.new(0.15,Enum.EasingStyle.Quad), normal=TweenInfo.new(0.25,Enum.EasingStyle.Quad), slow=TweenInfo.new(0.4,Enum.EasingStyle.Quad), spring=TweenInfo.new(0.4,Enum.EasingStyle.Back)},
 }
