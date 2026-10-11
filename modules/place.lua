@@ -1,4 +1,3 @@
--- modules/place.lua
 local TeleportService = game:GetService("TeleportService")
 local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
@@ -13,18 +12,18 @@ function Place.IsLobby() return Place.GetContext() == "Lobby" end
 function Place.IsMatch() return Place.GetContext() == "Match" end
 
 function Place.SafeReturnToVIP(Config)
-    pcall(function() Maid:Cleanup() end) -- Maid будет доступен глобально через _G или передан в Init
+    pcall(function() _G.NH_Maid:Cleanup() end)
     pcall(function()
-        if isPrivateServer and initialJobId ~= "" then
-            TeleportService:TeleportToPlaceInstance(Config.Anti773Fallback, initialJobId, LocalPlayer)
+        if game.PrivateServerId ~= "" and game.JobId ~= "" then
+            TeleportService:TeleportToPlaceInstance(102616257370565, game.JobId, LocalPlayer)
         else
-            TeleportService:Teleport(Config.Anti773Fallback, LocalPlayer)
+            TeleportService:Teleport(102616257370565, LocalPlayer)
         end
     end)
 end
 
-TeleportService.TeleportInitFailed:Connect(function(plr, result, msg)
-    if plr == LocalPlayer then task.wait(1); Place.SafeReturnToVIP(_G.NH_Config) end
+TeleportService.TeleportInitFailed:Connect(function(player, result, errorMessage)
+    if player == LocalPlayer then task.wait(1); Place.SafeReturnToVIP(_G.NH_Config) end
 end)
 
 return Place
