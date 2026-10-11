@@ -1,4 +1,4 @@
--- modules/clicker.lua
+-- modules/clicker.lua (ИСПРАВЛЕННЫЙ)
 return function ClickButtonByText(text)
     local function deepSearch(gui)
         if not gui then return false end
