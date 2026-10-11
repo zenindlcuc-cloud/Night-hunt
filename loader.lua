@@ -2,9 +2,23 @@
 local BASE = "https://raw.githubusercontent.com/zenindlcuc-cloud/Night-hunt/main/modules/"
 
 local function httpGet(url)
+    local requestFunc = request or http_request or (http and http.request) or (syn and syn.request) or (fluxus and fluxus.request)
+    
     for i = 1, 3 do
+        if requestFunc then
+            local ok, result = pcall(function() 
+                return requestFunc({
+                    Url = url,
+                    Method = "GET"
+                })
+            end)
+            if ok and result and result.Body and #result.Body > 0 then
+                return result.Body
+            end
+        end
+
         local ok, result = pcall(function() return game:HttpGet(url) end)
-        if ok and result and #result > 0 then return result end
+        if ok and type(result) == "string" and #result > 0 then return result end
         task.wait(0.5)
     end
     return nil
